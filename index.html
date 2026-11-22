@@ -4,20 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mes Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f6f7fb;
+      --bg: #f4f5f9;
       --surface: #ffffff;
-      --surface-alt: #f0f2f8;
-      --text: #1c202a;
-      --muted: #646b7d;
-      --primary: #3b5bdb;
-      --primary-hover: #2f4bc0;
-      --border: #e2e6f0;
-      --danger: #d92d20;
-      --success: #067647;
-      --radius: 14px;
-      --shadow: 0 6px 24px rgba(28, 32, 42, 0.06);
+      --surface-soft: #f8f9fc;
+      --ink: #171923;
+      --ink-muted: #5f667a;
+      --line: #e6e9f2;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #eef2ff;
+      --success-bg: #ecfdf3;
+      --success-ink: #027a48;
+      --danger-bg: #fef3f2;
+      --danger-ink: #b42318;
+      --shadow-sm: 0 2px 10px rgba(23, 25, 35, 0.04);
+      --shadow-md: 0 12px 32px rgba(23, 25, 35, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 9px;
     }
 
     * {
@@ -26,370 +35,450 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, #eef2ff 0%, var(--bg) 42%);
+      color: var(--ink);
+      min-height: 100vh;
     }
 
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid var(--line);
     }
 
-    .header-inner {
-      max-width: 1120px;
+    .topbar-inner {
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 16px 20px;
+      padding: 14px 24px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 1.35rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .badge {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--surface-alt);
-      color: var(--muted);
-    }
-
-    .badge.editor {
-      background: #e6f4ea;
-      color: var(--success);
-    }
-
-    .header-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    button, select, input, textarea {
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    button {
-      border: 1px solid transparent;
-      border-radius: 10px;
-      padding: 9px 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-    }
-
-    button:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border-color: var(--border);
-    }
-
-    .btn-secondary:hover:not(:disabled) {
-      background: var(--surface-alt);
-    }
-
-    .btn-danger {
-      background: #fef3f2;
-      color: var(--danger);
-      border-color: #fecdca;
-    }
-
-    .btn-danger:hover:not(:disabled) {
-      background: #fee4e2;
-    }
-
-    .btn-sm {
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      border-radius: 8px;
-    }
-
-    main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-
-    .status-banner {
-      margin-bottom: 18px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .status-banner.error {
-      border-color: #fecdca;
-      background: #fef3f2;
-      color: var(--danger);
-    }
-
-    .grid-collections {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
       justify-content: space-between;
       gap: 14px;
     }
 
-    .card h2, .card h3 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
     }
 
-    .muted {
-      color: var(--muted);
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .mode-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--surface-soft);
+      color: var(--ink-muted);
+      border: 1px solid var(--line);
+    }
+
+    .mode-pill.editor {
+      background: var(--success-bg);
+      color: var(--success-ink);
+      border-color: #abefc6;
+    }
+
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 9px 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.16s ease;
+    }
+
+    .btn-sm {
+      padding: 7px 12px;
+      font-size: 0.83rem;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface-soft);
+      border-color: #d0d5e3;
+    }
+
+    .btn-danger {
+      background: var(--danger-bg);
+      color: var(--danger-ink);
+      border-color: #fecdca;
+    }
+
+    .btn-danger:hover {
+      background: #fee4e2;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 72px;
+    }
+
+    .hero-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .hero-head h2 {
+      margin: 0 0 4px;
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-head p {
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 0.95rem;
+    }
+
+    .notice-bar {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notice-bar.error {
+      background: var(--danger-bg);
+      border-color: #fecdca;
+      color: var(--danger-ink);
+    }
+
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .collection-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .collection-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #cbd5e1;
+    }
+
+    .collection-tag {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 4px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .collection-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .collection-card p {
+      margin: 0;
+      color: var(--ink-muted);
       font-size: 0.9rem;
     }
 
-    .card-actions {
+    .card-footer-actions {
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
-      margin-top: 8px;
     }
 
-    .collection-header {
+    .collection-top {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 20px;
     }
 
-    .collection-header-left {
+    .collection-title-wrap {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .toolbar {
+    .collection-title-wrap h2 {
+      margin: 0;
+      font-size: 1.55rem;
+      font-weight: 800;
+    }
+
+    .filter-panel {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
       padding: 14px 16px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
     }
 
-    .toolbar-group {
+    .filter-inputs {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
       flex: 1;
     }
 
     input[type="text"],
     input[type="email"],
     input[type="password"],
-    input[type="number"],
     select,
     textarea {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      color: var(--ink);
       background: var(--surface);
-      color: var(--text);
     }
 
-    input[type="text"].search-input {
-      min-width: 220px;
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .search-box {
       flex: 1;
+      min-width: 220px;
     }
 
-    .items-list {
+    .item-stack {
       display: grid;
       gap: 12px;
     }
 
-    .item-row {
+    .item-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-    }
-
-    .item-main {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .item-title {
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1rem;
+      margin-bottom: 6px;
     }
 
-    .item-meta {
+    .item-badges {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.84rem;
+      color: var(--ink-muted);
     }
 
-    .tag {
-      background: var(--surface-alt);
-      color: var(--text);
-      padding: 2px 8px;
+    .chip {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.78rem;
+      font-weight: 600;
     }
 
-    .modal-backdrop {
+    .empty-box {
+      background: var(--surface);
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius-lg);
+      padding: 44px 24px;
+      text-align: center;
+      color: var(--ink-muted);
+    }
+
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.45);
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(3px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      z-index: 50;
+      padding: 18px;
+      z-index: 60;
     }
 
-    .modal-backdrop.open {
+    .modal-overlay.open {
       display: flex;
     }
 
-    .modal {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.22);
+    .modal-box {
       width: 100%;
-      max-width: 520px;
+      max-width: 480px;
       max-height: 90vh;
       overflow-y: auto;
-      padding: 22px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+      padding: 24px;
     }
 
-    .modal-header {
+    .modal-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
-    .modal-header h3 {
+    .modal-head h3 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
+      font-weight: 700;
     }
 
-    .form-grid {
+    .field-stack {
       display: grid;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .form-field {
+    .field {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
 
-    .form-field label {
-      font-size: 0.88rem;
-      font-weight: 600;
+    .field label {
+      font-size: 0.86rem;
+      font-weight: 700;
     }
 
-    .password-wrapper {
+    .pass-wrap {
       position: relative;
       display: flex;
       align-items: center;
     }
 
-    .password-wrapper input {
+    .pass-wrap input {
       width: 100%;
       padding-right: 42px;
     }
 
-    .eye-btn {
+    .pass-eye {
       position: absolute;
       right: 6px;
       background: transparent;
       border: none;
+      color: var(--ink-muted);
+      cursor: pointer;
       padding: 6px;
-      color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
-    .modal-footer {
+    .modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top: 18px;
-    }
-
-    .empty-state {
-      text-align: center;
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 36px 20px;
-      color: var(--muted);
+      margin-top: 20px;
     }
 
     .editor-only {
@@ -402,175 +491,176 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <h1 id="brandTitle">Mes Collections</h1>
-        <span id="roleBadge" class="badge">Mode Visiteur</span>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div id="brandArea" class="brand-area">
+        <div class="brand-mark">C</div>
+        <h1 class="brand-title">Mes Collections</h1>
+        <span id="modeBadge" class="mode-pill">Mode Visiteur</span>
       </div>
-      <div class="header-actions">
-        <button id="homeBtn" class="btn-secondary btn-sm">Accueil</button>
-        <button id="newCollectionBtn" class="btn-primary btn-sm editor-only">+ Nouvelle collection</button>
-        <button id="loginOpenBtn" class="btn-secondary btn-sm">Mode Éditeur</button>
-        <button id="logoutBtn" class="btn-danger btn-sm editor-only">Déconnexion</button>
+      <div class="nav-actions">
+        <button id="homeNavBtn" type="button" class="btn btn-ghost btn-sm">Accueil</button>
+        <button id="createCollectionBtn" type="button" class="btn btn-primary btn-sm editor-only">+ Nouvelle collection</button>
+        <button id="openLoginBtn" type="button" class="btn btn-ghost btn-sm">Mode Éditeur</button>
+        <button id="logoutBtn" type="button" class="btn btn-danger btn-sm editor-only">Déconnexion</button>
       </div>
     </div>
   </header>
 
-  <main>
-    <div id="statusBanner" class="status-banner">
-      <span id="statusText">Chargement des collections…</span>
-      <span id="authInfo" class="muted"></span>
+  <main class="container">
+    <div id="noticeBar" class="notice-bar">
+      <span id="noticeText">Chargement de vos collections…</span>
+      <span id="sessionLabel">Consultation publique</span>
     </div>
 
-    <section id="homeView">
-      <div id="collectionsGrid" class="grid-collections"></div>
+    <section id="homeSection">
+      <div class="hero-head">
+        <div>
+          <h2>Vos collections</h2>
+          <p>Retrouvez vos listes organisées, filtrez vos éléments et partagez un lien direct.</p>
+        </div>
+      </div>
+      <div id="collectionsGrid" class="collections-grid"></div>
     </section>
 
-    <section id="collectionView" style="display: none;">
-      <div class="collection-header">
-        <div class="collection-header-left">
-          <button id="backToHomeBtn" class="btn-secondary btn-sm">← Toutes les collections</button>
+    <section id="collectionSection" style="display: none;">
+      <div class="collection-top">
+        <div class="collection-title-wrap">
+          <button id="backBtn" type="button" class="btn btn-ghost btn-sm">← Retour</button>
           <div>
-            <h2 id="currentCollectionTitle" style="margin: 0;"></h2>
-            <div id="currentCollectionDesc" class="muted"></div>
+            <h2 id="detailTitle"></h2>
+            <p id="detailDesc" style="margin: 2px 0 0; color: var(--ink-muted); font-size: 0.92rem;"></p>
           </div>
         </div>
-        <div class="card-actions">
-          <button id="shareLinkBtn" class="btn-secondary btn-sm">Copier le lien</button>
-          <button id="openAddItemBtn" class="btn-primary btn-sm editor-only">+ Ajouter un élément</button>
-          <button id="openImportBtn" class="btn-secondary btn-sm editor-only">Importer une liste</button>
+        <div class="card-footer-actions">
+          <button id="copyShareBtn" type="button" class="btn btn-ghost btn-sm">Copier le lien</button>
+          <button id="addItemBtn" type="button" class="btn btn-primary btn-sm editor-only">+ Ajouter un élément</button>
+          <button id="importListBtn" type="button" class="btn btn-ghost btn-sm editor-only">Importer une liste</button>
         </div>
       </div>
 
-      <div class="toolbar">
-        <div class="toolbar-group">
-          <input id="searchInput" type="text" class="search-input" placeholder="Rechercher un titre, référence, catégorie…" />
-          <select id="categoryFilter">
+      <div class="filter-panel">
+        <div class="filter-inputs">
+          <input id="searchField" type="text" class="search-box" placeholder="Rechercher par titre, référence ou catégorie…" />
+          <select id="categorySelect">
             <option value="">Toutes les catégories</option>
           </select>
         </div>
-        <div id="itemsCount" class="muted"></div>
+        <span id="countLabel" style="font-size: 0.88rem; font-weight: 600; color: var(--ink-muted);"></span>
       </div>
 
-      <div id="itemsList" class="items-list"></div>
+      <div id="itemsContainer" class="item-stack"></div>
     </section>
   </main>
 
-  <!-- Modale Connexion Éditeur -->
-  <div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="loginModalTitle">Connexion Mode Éditeur</h3>
-        <button id="closeLoginModal" class="btn-secondary btn-sm">✕</button>
+  <!-- Connexion Éditeur -->
+  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Connexion Mode Éditeur</h3>
+        <button id="closeLoginBtn" type="button" class="btn btn-ghost btn-sm">✕</button>
       </div>
-      <form id="loginForm" class="form-grid">
-        <div class="form-field">
-          <label for="editorEmailSelect">Compte enregistré</label>
-          <select id="editorEmailSelect">
-            <option value="camille.boissel@gmail.com">camille.boissel@gmail.com</option>
-          </select>
+      <form id="loginForm" class="field-stack">
+        <div class="field">
+          <label for="emailInput">Adresse e-mail</label>
+          <input id="emailInput" type="email" value="camille.boissel@gmail.com" required autocomplete="email" />
         </div>
-        <div class="form-field">
-          <label for="loginEmail">Adresse e-mail</label>
-          <input id="loginEmail" type="email" value="camille.boissel@gmail.com" required autocomplete="email" />
-        </div>
-        <div class="form-field">
-          <label for="loginPassword">Mot de passe</label>
-          <div class="password-wrapper">
-            <input id="loginPassword" type="password" required autocomplete="current-password" />
-            <button type="button" id="togglePasswordBtn" class="eye-btn" aria-label="Afficher ou masquer le mot de passe">👁</button>
+        <div class="field">
+          <label for="passwordInput">Mot de passe</label>
+          <div class="pass-wrap">
+            <input id="passwordInput" type="password" required autocomplete="current-password" />
+            <button id="togglePassBtn" type="button" class="pass-eye" aria-label="Afficher le mot de passe">👁</button>
           </div>
         </div>
-        <div id="loginError" class="muted" style="color: var(--danger);"></div>
-        <div class="modal-footer">
-          <button type="button" id="cancelLoginBtn" class="btn-secondary">Annuler</button>
-          <button type="submit" id="submitLoginBtn" class="btn-primary">Se connecter</button>
+        <div id="loginErrorMsg" style="font-size: 0.86rem; color: var(--danger-ink);"></div>
+        <div class="modal-actions">
+          <button id="cancelLoginBtn" type="button" class="btn btn-ghost">Annuler</button>
+          <button type="submit" class="btn btn-primary">Se connecter</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modale Nouvelle Collection -->
-  <div id="collectionModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="collectionModalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="collectionModalTitle">Nouvelle collection</h3>
-        <button id="closeCollectionModal" class="btn-secondary btn-sm">✕</button>
+  <!-- Nouvelle collection -->
+  <div id="collectionModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Nouvelle collection</h3>
+        <button id="closeCollectionBtn" type="button" class="btn btn-ghost btn-sm">✕</button>
       </div>
-      <form id="collectionForm" class="form-grid">
-        <div class="form-field">
-          <label for="collectionName">Nom de la collection</label>
-          <input id="collectionName" type="text" placeholder="Ex. LEGO, Livres T'choupi" required />
+      <form id="collectionForm" class="field-stack">
+        <div class="field">
+          <label for="colNameInput">Nom de la collection</label>
+          <input id="colNameInput" type="text" placeholder="Ex. LEGO, Livres T'choupi" required />
         </div>
-        <div class="form-field">
-          <label for="collectionSlug">Identifiant URL (slug)</label>
-          <input id="collectionSlug" type="text" placeholder="Ex. lego, tchoupi" required />
+        <div class="field">
+          <label for="colSlugInput">Identifiant URL</label>
+          <input id="colSlugInput" type="text" placeholder="Ex. lego, tchoupi" required />
         </div>
-        <div class="form-field">
-          <label for="collectionDesc">Description</label>
-          <textarea id="collectionDesc" rows="2" placeholder="Description courte de la collection"></textarea>
+        <div class="field">
+          <label for="colDescInput">Description</label>
+          <textarea id="colDescInput" rows="2" placeholder="Courte description"></textarea>
         </div>
-        <div class="modal-footer">
-          <button type="button" id="cancelCollectionBtn" class="btn-secondary">Annuler</button>
-          <button type="submit" class="btn-primary">Enregistrer</button>
+        <div class="modal-actions">
+          <button id="cancelCollectionBtn" type="button" class="btn btn-ghost">Annuler</button>
+          <button type="submit" class="btn btn-primary">Créer</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modale Ajouter / Modifier un Élément -->
-  <div id="itemModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="itemModalTitle">Ajouter un élément</h3>
-        <button id="closeItemModal" class="btn-secondary btn-sm">✕</button>
+  <!-- Ajouter / Modifier un élément -->
+  <div id="itemModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="itemModalHeading">Ajouter un élément</h3>
+        <button id="closeItemBtn" type="button" class="btn btn-ghost btn-sm">✕</button>
       </div>
-      <form id="itemForm" class="form-grid">
-        <input type="hidden" id="editingItemId" />
-        <div class="form-field">
-          <label for="itemTitle">Titre / Nom</label>
-          <input id="itemTitle" type="text" required />
+      <form id="itemForm" class="field-stack">
+        <input id="itemIdField" type="hidden" />
+        <div class="field">
+          <label for="itemTitleField">Titre</label>
+          <input id="itemTitleField" type="text" required />
         </div>
-        <div class="form-field">
-          <label for="itemRef">Référence / Numéro</label>
-          <input id="itemRef" type="text" placeholder="Ex. 10316, Tome 12" />
+        <div class="field">
+          <label for="itemRefField">Référence</label>
+          <input id="itemRefField" type="text" placeholder="Ex. 10316, Tome 4" />
         </div>
-        <div class="form-field">
-          <label for="itemCategory">Catégorie</label>
-          <input id="itemCategory" type="text" placeholder="Ex. Harry Potter, Seigneur des Anneaux" />
+        <div class="field">
+          <label for="itemCatField">Catégorie</label>
+          <input id="itemCatField" type="text" placeholder="Ex. Harry Potter, Classiques" />
         </div>
-        <div class="form-field">
-          <label for="itemNotes">Notes</label>
-          <textarea id="itemNotes" rows="2"></textarea>
+        <div class="field">
+          <label for="itemNotesField">Notes</label>
+          <textarea id="itemNotesField" rows="2"></textarea>
         </div>
-        <div class="modal-footer">
-          <button type="button" id="cancelItemBtn" class="btn-secondary">Annuler</button>
-          <button type="submit" class="btn-primary">Enregistrer</button>
+        <div class="modal-actions">
+          <button id="cancelItemBtn" type="button" class="btn btn-ghost">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modale Importation en masse -->
-  <div id="importModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="importModalTitle">Importer une liste</h3>
-        <button id="closeImportModal" class="btn-secondary btn-sm">✕</button>
+  <!-- Importer une liste -->
+  <div id="importModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Importer une liste</h3>
+        <button id="closeImportBtn" type="button" class="btn btn-ghost btn-sm">✕</button>
       </div>
-      <form id="importForm" class="form-grid">
-        <div class="form-field">
-          <label for="importCategory">Catégorie par défaut (optionnel)</label>
-          <input id="importCategory" type="text" placeholder="Ex. T'choupi" />
+      <form id="importForm" class="field-stack">
+        <div class="field">
+          <label for="importDefaultCat">Catégorie par défaut (optionnel)</label>
+          <input id="importDefaultCat" type="text" placeholder="Ex. LEGO ou T'choupi" />
         </div>
-        <div class="form-field">
-          <label for="importText">Une ligne par élément (format : Titre | Référence | Catégorie | Notes)</label>
-          <textarea id="importText" rows="7" placeholder="T'choupi à l'école | 001 | Classiques | Bon état&#10;Rivendell | 10316 | Seigneur des Anneaux" required></textarea>
+        <div class="field">
+          <label for="importLinesArea">Une ligne par élément (Titre | Référence | Catégorie | Notes)</label>
+          <textarea id="importLinesArea" rows="7" placeholder="Le château de Poudlard : la grande salle | 76435 | Harry Potter | 10+, 1732 pièces&#10;T'choupi à l'école | 001 | Classiques" required></textarea>
         </div>
-        <div class="modal-footer">
-          <button type="button" id="cancelImportBtn" class="btn-secondary">Annuler</button>
-          <button type="submit" class="btn-primary">Importer</button>
+        <div class="modal-actions">
+          <button id="cancelImportBtn" type="button" class="btn btn-ghost">Annuler</button>
+          <button type="submit" class="btn btn-primary">Importer</button>
         </div>
       </form>
     </div>
@@ -615,74 +705,73 @@
     const state = {
       user: null,
       collections: [],
-      currentCollection: null,
+      activeCollection: null,
       items: []
     };
 
-    const els = {
-      brandTitle: document.getElementById("brandTitle"),
-      roleBadge: document.getElementById("roleBadge"),
-      homeBtn: document.getElementById("homeBtn"),
-      newCollectionBtn: document.getElementById("newCollectionBtn"),
-      loginOpenBtn: document.getElementById("loginOpenBtn"),
+    const ui = {
+      brandArea: document.getElementById("brandArea"),
+      modeBadge: document.getElementById("modeBadge"),
+      homeNavBtn: document.getElementById("homeNavBtn"),
+      createCollectionBtn: document.getElementById("createCollectionBtn"),
+      openLoginBtn: document.getElementById("openLoginBtn"),
       logoutBtn: document.getElementById("logoutBtn"),
-      statusBanner: document.getElementById("statusBanner"),
-      statusText: document.getElementById("statusText"),
-      authInfo: document.getElementById("authInfo"),
-      homeView: document.getElementById("homeView"),
-      collectionView: document.getElementById("collectionView"),
+      noticeBar: document.getElementById("noticeBar"),
+      noticeText: document.getElementById("noticeText"),
+      sessionLabel: document.getElementById("sessionLabel"),
+      homeSection: document.getElementById("homeSection"),
+      collectionSection: document.getElementById("collectionSection"),
       collectionsGrid: document.getElementById("collectionsGrid"),
-      backToHomeBtn: document.getElementById("backToHomeBtn"),
-      currentCollectionTitle: document.getElementById("currentCollectionTitle"),
-      currentCollectionDesc: document.getElementById("currentCollectionDesc"),
-      shareLinkBtn: document.getElementById("shareLinkBtn"),
-      openAddItemBtn: document.getElementById("openAddItemBtn"),
-      openImportBtn: document.getElementById("openImportBtn"),
-      searchInput: document.getElementById("searchInput"),
-      categoryFilter: document.getElementById("categoryFilter"),
-      itemsCount: document.getElementById("itemsCount"),
-      itemsList: document.getElementById("itemsList"),
+      backBtn: document.getElementById("backBtn"),
+      detailTitle: document.getElementById("detailTitle"),
+      detailDesc: document.getElementById("detailDesc"),
+      copyShareBtn: document.getElementById("copyShareBtn"),
+      addItemBtn: document.getElementById("addItemBtn"),
+      importListBtn: document.getElementById("importListBtn"),
+      searchField: document.getElementById("searchField"),
+      categorySelect: document.getElementById("categorySelect"),
+      countLabel: document.getElementById("countLabel"),
+      itemsContainer: document.getElementById("itemsContainer"),
       loginModal: document.getElementById("loginModal"),
-      closeLoginModal: document.getElementById("closeLoginModal"),
+      closeLoginBtn: document.getElementById("closeLoginBtn"),
       cancelLoginBtn: document.getElementById("cancelLoginBtn"),
       loginForm: document.getElementById("loginForm"),
-      editorEmailSelect: document.getElementById("editorEmailSelect"),
-      loginEmail: document.getElementById("loginEmail"),
-      loginPassword: document.getElementById("loginPassword"),
-      togglePasswordBtn: document.getElementById("togglePasswordBtn"),
-      loginError: document.getElementById("loginError"),
+      emailInput: document.getElementById("emailInput"),
+      passwordInput: document.getElementById("passwordInput"),
+      togglePassBtn: document.getElementById("togglePassBtn"),
+      loginErrorMsg: document.getElementById("loginErrorMsg"),
       collectionModal: document.getElementById("collectionModal"),
-      closeCollectionModal: document.getElementById("closeCollectionModal"),
+      closeCollectionBtn: document.getElementById("closeCollectionBtn"),
       cancelCollectionBtn: document.getElementById("cancelCollectionBtn"),
       collectionForm: document.getElementById("collectionForm"),
-      collectionName: document.getElementById("collectionName"),
-      collectionSlug: document.getElementById("collectionSlug"),
-      collectionDesc: document.getElementById("collectionDesc"),
+      colNameInput: document.getElementById("colNameInput"),
+      colSlugInput: document.getElementById("colSlugInput"),
+      colDescInput: document.getElementById("colDescInput"),
       itemModal: document.getElementById("itemModal"),
-      closeItemModal: document.getElementById("closeItemModal"),
+      closeItemBtn: document.getElementById("closeItemBtn"),
       cancelItemBtn: document.getElementById("cancelItemBtn"),
       itemForm: document.getElementById("itemForm"),
-      itemModalTitle: document.getElementById("itemModalTitle"),
-      editingItemId: document.getElementById("editingItemId"),
-      itemTitle: document.getElementById("itemTitle"),
-      itemRef: document.getElementById("itemRef"),
-      itemCategory: document.getElementById("itemCategory"),
-      itemNotes: document.getElementById("itemNotes"),
+      itemModalHeading: document.getElementById("itemModalHeading"),
+      itemIdField: document.getElementById("itemIdField"),
+      itemTitleField: document.getElementById("itemTitleField"),
+      itemRefField: document.getElementById("itemRefField"),
+      itemCatField: document.getElementById("itemCatField"),
+      itemNotesField: document.getElementById("itemNotesField"),
       importModal: document.getElementById("importModal"),
-      closeImportModal: document.getElementById("closeImportModal"),
+      closeImportBtn: document.getElementById("closeImportBtn"),
       cancelImportBtn: document.getElementById("cancelImportBtn"),
       importForm: document.getElementById("importForm"),
-      importCategory: document.getElementById("importCategory"),
-      importText: document.getElementById("importText")
+      importDefaultCat: document.getElementById("importDefaultCat"),
+      importLinesArea: document.getElementById("importLinesArea")
     };
 
-    function setStatus(message, isError = false) {
-      els.statusText.textContent = message;
-      els.statusBanner.classList.toggle("error", isError);
+    function setNotice(text, isError = false) {
+      ui.noticeText.textContent = text;
+      ui.noticeBar.classList.toggle("error", isError);
     }
 
-    function slugify(text) {
-      return text
+    function makeSlug(str) {
+      return str
         .toString()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -692,259 +781,8 @@
         .replace(/^-+|-+$/g, "");
     }
 
-    function openModal(modal) {
-      modal.classList.add("open");
-    }
-
-    function closeModal(modal) {
-      modal.classList.remove("open");
-    }
-
-    function updateEditorUI() {
-      const isEditor = Boolean(state.user);
-      document.body.classList.toggle("is-editor", isEditor);
-      els.roleBadge.textContent = isEditor ? "Mode Éditeur" : "Mode Visiteur";
-      els.roleBadge.classList.toggle("editor", isEditor);
-      els.loginOpenBtn.style.display = isEditor ? "none" : "inline-flex";
-      els.authInfo.textContent = isEditor ? `Connecté : ${state.user.email}` : "Lecture publique";
-      renderItems();
-    }
-
-    async function loadEditorsList() {
-      try {
-        const snap = await getDocs(collection(db, "editors"));
-        const emails = new Set(["camille.boissel@gmail.com"]);
-        snap.forEach((docSnap) => {
-          const data = docSnap.data();
-          if (data && data.email) {
-            emails.add(data.email.trim());
-          }
-        });
-        if (state.user && state.user.email) {
-          emails.add(state.user.email.trim());
-        }
-        els.editorEmailSelect.innerHTML = "";
-        Array.from(emails).forEach((email) => {
-          const opt = document.createElement("option");
-          opt.value = email;
-          opt.textContent = email;
-          els.editorEmailSelect.appendChild(opt);
-        });
-        els.editorEmailSelect.value = els.loginEmail.value || "camille.boissel@gmail.com";
-      } catch (_) {}
-    }
-
-    async function loadCollections() {
-      try {
-        setStatus("Chargement des collections…");
-        const snap = await getDocs(collection(db, "collections"));
-        state.collections = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        state.collections.sort((a, b) => (a.name || "").localeCompare(b.name || "", "fr"));
-        renderCollections();
-
-        const params = new URLSearchParams(window.location.search);
-        const requestedSlug = params.get("collection");
-        if (requestedSlug) {
-          const found = state.collections.find(
-            (c) => (c.slug || c.id).toLowerCase() === requestedSlug.toLowerCase()
-          );
-          if (found) {
-            await openCollection(found);
-            return;
-          }
-        }
-        showHome();
-        setStatus(
-          state.collections.length
-            ? `${state.collections.length} collection(s) disponible(s).`
-            : "Aucune collection enregistrée pour le moment."
-        );
-      } catch (err) {
-        setStatus(`Erreur lors du chargement des collections : ${err.message}`, true);
-      }
-    }
-
-    function renderCollections() {
-      els.collectionsGrid.innerHTML = "";
-      if (!state.collections.length) {
-        els.collectionsGrid.innerHTML = `
-          <div class="empty-state" style="grid-column: 1 / -1;">
-            <p>Aucune collection n'est encore enregistrée dans Firestore.</p>
-            <p class="muted">Connecte-toi en Mode Éditeur pour créer ta première collection.</p>
-          </div>
-        `;
-        return;
-      }
-
-      state.collections.forEach((col) => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML = `
-          <div>
-            <h2>${escapeHtml(col.name || col.id)}</h2>
-            <p class="muted">${escapeHtml(col.description || "Collection personnelle")}</p>
-          </div>
-          <div class="card-actions">
-            <button type="button" class="btn-primary btn-sm open-col-btn">Ouvrir</button>
-            <button type="button" class="btn-secondary btn-sm copy-col-btn">Lien</button>
-          </div>
-        `;
-        card.querySelector(".open-col-btn").addEventListener("click", () => openCollection(col));
-        card.querySelector(".copy-col-btn").addEventListener("click", () => copyCollectionLink(col));
-        els.collectionsGrid.appendChild(card);
-      });
-    }
-
-    async function openCollection(col) {
-      state.currentCollection = col;
-      const slug = col.slug || col.id;
-      const url = new URL(window.location.href);
-      url.searchParams.set("collection", slug);
-      window.history.replaceState({}, "", url.toString());
-
-      els.homeView.style.display = "none";
-      els.collectionView.style.display = "block";
-      els.currentCollectionTitle.textContent = col.name || slug;
-      els.currentCollectionDesc.textContent = col.description || "";
-      els.searchInput.value = "";
-      els.categoryFilter.value = "";
-
-      await loadItems(col.id);
-    }
-
-    function showHome() {
-      state.currentCollection = null;
-      state.items = [];
-      const url = new URL(window.location.href);
-      url.searchParams.delete("collection");
-      window.history.replaceState({}, "", url.toString());
-
-      els.collectionView.style.display = "none";
-      els.homeView.style.display = "block";
-      renderCollections();
-    }
-
-    async function loadItems(collectionId) {
-      try {
-        setStatus("Chargement des éléments…");
-        const q = query(collection(db, "items"), where("collectionId", "==", collectionId));
-        const snap = await getDocs(q);
-        state.items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        state.items.sort((a, b) => (a.title || "").localeCompare(b.title || "", "fr"));
-        populateCategories();
-        renderItems();
-        setStatus(`Collection « ${state.currentCollection.name || collectionId} » chargée.`);
-      } catch (err) {
-        setStatus(`Erreur de chargement des éléments : ${err.message}`, true);
-      }
-    }
-
-    function populateCategories() {
-      const currentVal = els.categoryFilter.value;
-      const cats = new Set();
-      state.items.forEach((item) => {
-        if (item.category && item.category.trim()) {
-          cats.add(item.category.trim());
-        }
-      });
-      els.categoryFilter.innerHTML = `<option value="">Toutes les catégories</option>`;
-      Array.from(cats)
-        .sort((a, b) => a.localeCompare(b, "fr"))
-        .forEach((cat) => {
-          const opt = document.createElement("option");
-          opt.value = cat;
-          opt.textContent = cat;
-          els.categoryFilter.appendChild(opt);
-        });
-      if (Array.from(cats).includes(currentVal)) {
-        els.categoryFilter.value = currentVal;
-      }
-    }
-
-    function renderItems() {
-      if (!state.currentCollection) return;
-      const term = (els.searchInput.value || "").trim().toLowerCase();
-      const selectedCat = els.categoryFilter.value;
-
-      const filtered = state.items.filter((item) => {
-        const matchesCat = !selectedCat || (item.category || "").trim() === selectedCat;
-        const haystack = `${item.title || ""} ${item.ref || ""} ${item.category || ""} ${item.notes || ""}`.toLowerCase();
-        const matchesTerm = !term || haystack.includes(term);
-        return matchesCat && matchesTerm;
-      });
-
-      els.itemsCount.textContent = `${filtered.length} élément(s)`;
-      els.itemsList.innerHTML = "";
-
-      if (!filtered.length) {
-        els.itemsList.innerHTML = `
-          <div class="empty-state">
-            Aucun élément ne correspond à votre affichage actuel.
-          </div>
-        `;
-        return;
-      }
-
-      filtered.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "item-row";
-        row.innerHTML = `
-          <div class="item-main">
-            <div class="item-title">${escapeHtml(item.title || "Sans titre")}</div>
-            <div class="item-meta">
-              ${item.ref ? `<span class="tag">Réf. ${escapeHtml(item.ref)}</span>` : ""}
-              ${item.category ? `<span class="tag">${escapeHtml(item.category)}</span>` : ""}
-              ${item.notes ? `<span>${escapeHtml(item.notes)}</span>` : ""}
-            </div>
-          </div>
-          <div class="card-actions editor-only">
-            <button type="button" class="btn-secondary btn-sm edit-item-btn">Modifier</button>
-            <button type="button" class="btn-danger btn-sm delete-item-btn">Supprimer</button>
-          </div>
-        `;
-
-        row.querySelector(".edit-item-btn").addEventListener("click", () => openEditItemModal(item));
-        row.querySelector(".delete-item-btn").addEventListener("click", () => deleteItem(item));
-        els.itemsList.appendChild(row);
-      });
-    }
-
-    function copyCollectionLink(col) {
-      const slug = col.slug || col.id;
-      const url = new URL(window.location.href);
-      url.searchParams.set("collection", slug);
-      navigator.clipboard?.writeText(url.toString()).then(
-        () => setStatus(`Lien copié : ${url.toString()}`),
-        () => setStatus(`Lien de partage : ${url.toString()}`)
-      );
-    }
-
-    function openEditItemModal(item) {
-      els.itemModalTitle.textContent = "Modifier un élément";
-      els.editingItemId.value = item.id;
-      els.itemTitle.value = item.title || "";
-      els.itemRef.value = item.ref || "";
-      els.itemCategory.value = item.category || "";
-      els.itemNotes.value = item.notes || "";
-      openModal(els.itemModal);
-    }
-
-    async function deleteItem(item) {
-      if (!state.user) return;
-      if (!confirm(`Supprimer « ${item.title || "cet élément"} » ?`)) return;
-      try {
-        await deleteDoc(doc(db, "items", item.id));
-        state.items = state.items.filter((i) => i.id !== item.id);
-        populateCategories();
-        renderItems();
-        setStatus("Élément supprimé.");
-      } catch (err) {
-        setStatus(`Erreur lors de la suppression : ${err.message}`, true);
-      }
-    }
-
-    function escapeHtml(str) {
-      return String(str)
+    function esc(value) {
+      return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -952,202 +790,391 @@
         .replace(/'/g, "&#39;");
     }
 
-    els.brandTitle.addEventListener("click", showHome);
-    els.homeBtn.addEventListener("click", showHome);
-    els.backToHomeBtn.addEventListener("click", showHome);
-    els.shareLinkBtn.addEventListener("click", () => {
-      if (state.currentCollection) copyCollectionLink(state.currentCollection);
-    });
-    els.searchInput.addEventListener("input", renderItems);
-    els.categoryFilter.addEventListener("change", renderItems);
+    function openDialog(el) {
+      el.classList.add("open");
+    }
 
-    els.loginOpenBtn.addEventListener("click", async () => {
-      els.loginError.textContent = "";
-      els.loginPassword.value = "";
-      await loadEditorsList();
-      openModal(els.loginModal);
-    });
+    function closeDialog(el) {
+      el.classList.remove("open");
+    }
 
-    els.closeLoginModal.addEventListener("click", () => closeModal(els.loginModal));
-    els.cancelLoginBtn.addEventListener("click", () => closeModal(els.loginModal));
+    function syncRoleUI() {
+      const editor = Boolean(state.user);
+      document.body.classList.toggle("is-editor", editor);
+      ui.modeBadge.textContent = editor ? "Mode Éditeur" : "Mode Visiteur";
+      ui.modeBadge.classList.toggle("editor", editor);
+      ui.openLoginBtn.style.display = editor ? "none" : "inline-flex";
+      ui.sessionLabel.textContent = editor ? `Connecté : ${state.user.email}` : "Consultation publique";
+      renderItems();
+    }
 
-    els.editorEmailSelect.addEventListener("change", () => {
-      els.loginEmail.value = els.editorEmailSelect.value;
-    });
-
-    els.togglePasswordBtn.addEventListener("click", () => {
-      const isPass = els.loginPassword.type === "password";
-      els.loginPassword.type = isPass ? "text" : "password";
-    });
-
-    els.loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      els.loginError.textContent = "";
-      const email = els.loginEmail.value.trim();
-      const password = els.loginPassword.value;
+    async function loadCollections() {
       try {
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        try {
-          await setDoc(
-            doc(db, "editors", cred.user.uid),
-            { email: cred.user.email, updatedAt: serverTimestamp() },
-            { merge: true }
+        setNotice("Chargement de vos collections…");
+        const snap = await getDocs(collection(db, "collections"));
+        state.collections = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        state.collections.sort((a, b) => (a.name || "").localeCompare(b.name || "", "fr"));
+        renderCollections();
+
+        const slugParam = new URLSearchParams(window.location.search).get("collection");
+        if (slugParam) {
+          const match = state.collections.find(
+            (c) => (c.slug || c.id).toLowerCase() === slugParam.toLowerCase()
           );
-        } catch (_) {}
-        closeModal(els.loginModal);
-        setStatus(`Connecté en Mode Éditeur (${cred.user.email}).`);
+          if (match) {
+            await openCollection(match);
+            return;
+          }
+        }
+        showHome();
+        setNotice(
+          state.collections.length
+            ? `${state.collections.length} collection(s) prête(s).`
+            : "Aucune collection enregistrée pour l'instant."
+        );
       } catch (err) {
-        els.loginError.textContent = `Connexion impossible : ${err.message}`;
+        setNotice(`Erreur chargement collections : ${err.message}`, true);
+      }
+    }
+
+    function renderCollections() {
+      ui.collectionsGrid.innerHTML = "";
+      if (!state.collections.length) {
+        ui.collectionsGrid.innerHTML = `
+          <div class="empty-box" style="grid-column: 1 / -1;">
+            <p style="margin: 0 0 6px; font-weight: 700; color: var(--ink);">Aucune collection pour le moment</p>
+            <p style="margin: 0; font-size: 0.9rem;">Passe en Mode Éditeur pour créer ta première collection.</p>
+          </div>
+        `;
+        return;
+      }
+
+      state.collections.forEach((col) => {
+        const card = document.createElement("article");
+        card.className = "collection-card";
+        card.innerHTML = `
+          <div>
+            <span class="collection-tag">${esc(col.slug || col.id)}</span>
+            <h3>${esc(col.name || col.id)}</h3>
+            <p>${esc(col.description || "Collection personnelle")}</p>
+          </div>
+          <div class="card-footer-actions">
+            <button type="button" class="btn btn-primary btn-sm open-btn">Ouvrir</button>
+            <button type="button" class="btn btn-ghost btn-sm share-btn">Lien</button>
+          </div>
+        `;
+        card.querySelector(".open-btn").addEventListener("click", () => openCollection(col));
+        card.querySelector(".share-btn").addEventListener("click", () => copyShareUrl(col));
+        ui.collectionsGrid.appendChild(card);
+      });
+    }
+
+    async function openCollection(col) {
+      state.activeCollection = col;
+      const slug = col.slug || col.id;
+      const url = new URL(window.location.href);
+      url.searchParams.set("collection", slug);
+      window.history.replaceState({}, "", url.toString());
+
+      ui.homeSection.style.display = "none";
+      ui.collectionSection.style.display = "block";
+      ui.detailTitle.textContent = col.name || slug;
+      ui.detailDesc.textContent = col.description || "";
+      ui.searchField.value = "";
+      ui.categorySelect.value = "";
+
+      await loadItems(col.id);
+    }
+
+    function showHome() {
+      state.activeCollection = null;
+      state.items = [];
+      const url = new URL(window.location.href);
+      url.searchParams.delete("collection");
+      window.history.replaceState({}, "", url.toString());
+
+      ui.collectionSection.style.display = "none";
+      ui.homeSection.style.display = "block";
+      renderCollections();
+    }
+
+    async function loadItems(collectionId) {
+      try {
+        setNotice("Chargement des éléments…");
+        const q = query(collection(db, "items"), where("collectionId", "==", collectionId));
+        const snap = await getDocs(q);
+        state.items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        state.items.sort((a, b) => (a.title || "").localeCompare(b.title || "", "fr"));
+        buildCategoryOptions();
+        renderItems();
+        setNotice(`Collection « ${state.activeCollection.name || collectionId} » affichée.`);
+      } catch (err) {
+        setNotice(`Erreur chargement éléments : ${err.message}`, true);
+      }
+    }
+
+    function buildCategoryOptions() {
+      const prev = ui.categorySelect.value;
+      const cats = new Set();
+      state.items.forEach((it) => {
+        if (it.category && it.category.trim()) cats.add(it.category.trim());
+      });
+      ui.categorySelect.innerHTML = `<option value="">Toutes les catégories</option>`;
+      Array.from(cats)
+        .sort((a, b) => a.localeCompare(b, "fr"))
+        .forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c;
+          opt.textContent = c;
+          ui.categorySelect.appendChild(opt);
+        });
+      if (Array.from(cats).includes(prev)) ui.categorySelect.value = prev;
+    }
+
+    function renderItems() {
+      if (!state.activeCollection) return;
+      const qText = (ui.searchField.value || "").trim().toLowerCase();
+      const qCat = ui.categorySelect.value;
+
+      const list = state.items.filter((it) => {
+        const okCat = !qCat || (it.category || "").trim() === qCat;
+        const blob = `${it.title || ""} ${it.ref || ""} ${it.category || ""} ${it.notes || ""}`.toLowerCase();
+        const okText = !qText || blob.includes(qText);
+        return okCat && okText;
+      });
+
+      ui.countLabel.textContent = `${list.length} élément(s)`;
+      ui.itemsContainer.innerHTML = "";
+
+      if (!list.length) {
+        ui.itemsContainer.innerHTML = `<div class="empty-box">Aucun élément trouvé dans cette vue.</div>`;
+        return;
+      }
+
+      list.forEach((it) => {
+        const row = document.createElement("div");
+        row.className = "item-card";
+        row.innerHTML = `
+          <div>
+            <div class="item-title">${esc(it.title || "Sans titre")}</div>
+            <div class="item-badges">
+              ${it.ref ? `<span class="chip">Réf. ${esc(it.ref)}</span>` : ""}
+              ${it.category ? `<span class="chip">${esc(it.category)}</span>` : ""}
+              ${it.notes ? `<span>${esc(it.notes)}</span>` : ""}
+            </div>
+          </div>
+          <div class="card-footer-actions editor-only">
+            <button type="button" class="btn btn-ghost btn-sm edit-btn">Modifier</button>
+            <button type="button" class="btn btn-danger btn-sm del-btn">Supprimer</button>
+          </div>
+        `;
+        row.querySelector(".edit-btn").addEventListener("click", () => startEditItem(it));
+        row.querySelector(".del-btn").addEventListener("click", () => removeItem(it));
+        ui.itemsContainer.appendChild(row);
+      });
+    }
+
+    function copyShareUrl(col) {
+      const slug = col.slug || col.id;
+      const url = new URL(window.location.href);
+      url.searchParams.set("collection", slug);
+      navigator.clipboard?.writeText(url.toString()).then(
+        () => setNotice(`Lien copié : ${url.toString()}`),
+        () => setNotice(`Lien : ${url.toString()}`)
+      );
+    }
+
+    function startEditItem(it) {
+      ui.itemModalHeading.textContent = "Modifier un élément";
+      ui.itemIdField.value = it.id;
+      ui.itemTitleField.value = it.title || "";
+      ui.itemRefField.value = it.ref || "";
+      ui.itemCatField.value = it.category || "";
+      ui.itemNotesField.value = it.notes || "";
+      openDialog(ui.itemModal);
+    }
+
+    async function removeItem(it) {
+      if (!state.user) return;
+      if (!confirm(`Supprimer « ${it.title || "cet élément"} » ?`)) return;
+      try {
+        await deleteDoc(doc(db, "items", it.id));
+        state.items = state.items.filter((x) => x.id !== it.id);
+        buildCategoryOptions();
+        renderItems();
+        setNotice("Élément supprimé.");
+      } catch (err) {
+        setNotice(`Erreur suppression : ${err.message}`, true);
+      }
+    }
+
+    ui.brandArea.addEventListener("click", showHome);
+    ui.homeNavBtn.addEventListener("click", showHome);
+    ui.backBtn.addEventListener("click", showHome);
+    ui.copyShareBtn.addEventListener("click", () => {
+      if (state.activeCollection) copyShareUrl(state.activeCollection);
+    });
+    ui.searchField.addEventListener("input", renderItems);
+    ui.categorySelect.addEventListener("change", renderItems);
+
+    ui.openLoginBtn.addEventListener("click", () => {
+      ui.loginErrorMsg.textContent = "";
+      ui.passwordInput.value = "";
+      openDialog(ui.loginModal);
+    });
+    ui.closeLoginBtn.addEventListener("click", () => closeDialog(ui.loginModal));
+    ui.cancelLoginBtn.addEventListener("click", () => closeDialog(ui.loginModal));
+    ui.togglePassBtn.addEventListener("click", () => {
+      ui.passwordInput.type = ui.passwordInput.type === "password" ? "text" : "password";
+    });
+
+    ui.loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      ui.loginErrorMsg.textContent = "";
+      try {
+        const cred = await signInWithEmailAndPassword(
+          auth,
+          ui.emailInput.value.trim(),
+          ui.passwordInput.value
+        );
+        closeDialog(ui.loginModal);
+        setNotice(`Connecté en Mode Éditeur (${cred.user.email}).`);
+      } catch (err) {
+        ui.loginErrorMsg.textContent = `Connexion impossible : ${err.message}`;
       }
     });
 
-    els.logoutBtn.addEventListener("click", async () => {
+    ui.logoutBtn.addEventListener("click", async () => {
       await signOut(auth);
-      setStatus("Déconnecté — retour en Mode Visiteur.");
+      setNotice("Déconnecté — retour en Mode Visiteur.");
     });
 
-    els.newCollectionBtn.addEventListener("click", () => {
-      els.collectionForm.reset();
-      delete els.collectionSlug.dataset.manual;
-      openModal(els.collectionModal);
+    ui.createCollectionBtn.addEventListener("click", () => {
+      ui.collectionForm.reset();
+      delete ui.colSlugInput.dataset.manual;
+      openDialog(ui.collectionModal);
     });
-
-    els.collectionName.addEventListener("input", () => {
-      if (!els.collectionSlug.dataset.manual) {
-        els.collectionSlug.value = slugify(els.collectionName.value);
-      }
+    ui.colNameInput.addEventListener("input", () => {
+      if (!ui.colSlugInput.dataset.manual) ui.colSlugInput.value = makeSlug(ui.colNameInput.value);
     });
-
-    els.collectionSlug.addEventListener("input", () => {
-      els.collectionSlug.dataset.manual = "true";
-      els.collectionSlug.value = slugify(els.collectionSlug.value);
+    ui.colSlugInput.addEventListener("input", () => {
+      ui.colSlugInput.dataset.manual = "true";
+      ui.colSlugInput.value = makeSlug(ui.colSlugInput.value);
     });
+    ui.closeCollectionBtn.addEventListener("click", () => closeDialog(ui.collectionModal));
+    ui.cancelCollectionBtn.addEventListener("click", () => closeDialog(ui.collectionModal));
 
-    els.closeCollectionModal.addEventListener("click", () => closeModal(els.collectionModal));
-    els.cancelCollectionBtn.addEventListener("click", () => closeModal(els.collectionModal));
-
-    els.collectionForm.addEventListener("submit", async (e) => {
+    ui.collectionForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!state.user) return;
-      const name = els.collectionName.value.trim();
-      const slug = slugify(els.collectionSlug.value || name);
-      const description = els.collectionDesc.value.trim();
+      const name = ui.colNameInput.value.trim();
+      const slug = makeSlug(ui.colSlugInput.value || name);
+      const description = ui.colDescInput.value.trim();
       if (!name || !slug) return;
-
       try {
-        const docRef = doc(db, "collections", slug);
-        const payload = {
+        await setDoc(doc(db, "collections", slug), {
           name,
           slug,
           description,
           updatedAt: serverTimestamp()
-        };
-        await setDoc(docRef, payload, { merge: true });
-        closeModal(els.collectionModal);
+        }, { merge: true });
+        closeDialog(ui.collectionModal);
         await loadCollections();
-        setStatus(`Collection « ${name} » enregistrée.`);
+        setNotice(`Collection « ${name} » enregistrée.`);
       } catch (err) {
-        setStatus(`Erreur création collection : ${err.message}`, true);
+        setNotice(`Erreur création collection : ${err.message}`, true);
       }
     });
 
-    els.openAddItemBtn.addEventListener("click", () => {
-      els.itemModalTitle.textContent = "Ajouter un élément";
-      els.editingItemId.value = "";
-      els.itemForm.reset();
-      openModal(els.itemModal);
+    ui.addItemBtn.addEventListener("click", () => {
+      ui.itemModalHeading.textContent = "Ajouter un élément";
+      ui.itemIdField.value = "";
+      ui.itemForm.reset();
+      openDialog(ui.itemModal);
     });
+    ui.closeItemBtn.addEventListener("click", () => closeDialog(ui.itemModal));
+    ui.cancelItemBtn.addEventListener("click", () => closeDialog(ui.itemModal));
 
-    els.closeItemModal.addEventListener("click", () => closeModal(els.itemModal));
-    els.cancelItemBtn.addEventListener("click", () => closeModal(els.itemModal));
-
-    els.itemForm.addEventListener("submit", async (e) => {
+    ui.itemForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!state.user || !state.currentCollection) return;
-
-      const id = els.editingItemId.value;
-      const data = {
-        collectionId: state.currentCollection.id,
-        title: els.itemTitle.value.trim(),
-        ref: els.itemRef.value.trim(),
-        category: els.itemCategory.value.trim(),
-        notes: els.itemNotes.value.trim(),
+      if (!state.user || !state.activeCollection) return;
+      const id = ui.itemIdField.value;
+      const payload = {
+        collectionId: state.activeCollection.id,
+        title: ui.itemTitleField.value.trim(),
+        ref: ui.itemRefField.value.trim(),
+        category: ui.itemCatField.value.trim(),
+        notes: ui.itemNotesField.value.trim(),
         updatedAt: serverTimestamp()
       };
-
       try {
         if (id) {
-          await updateDoc(doc(db, "items", id), data);
-          const idx = state.items.findIndex((i) => i.id === id);
-          if (idx !== -1) state.items[idx] = { id, ...data };
+          await updateDoc(doc(db, "items", id), payload);
+          const idx = state.items.findIndex((x) => x.id === id);
+          if (idx !== -1) state.items[idx] = { id, ...payload };
         } else {
-          data.createdAt = serverTimestamp();
-          const created = await addDoc(collection(db, "items"), data);
-          state.items.push({ id: created.id, ...data });
+          payload.createdAt = serverTimestamp();
+          const refDoc = await addDoc(collection(db, "items"), payload);
+          state.items.push({ id: refDoc.id, ...payload });
         }
         state.items.sort((a, b) => (a.title || "").localeCompare(b.title || "", "fr"));
-        populateCategories();
+        buildCategoryOptions();
         renderItems();
-        closeModal(els.itemModal);
-        setStatus("Élément enregistré dans Firestore.");
+        closeDialog(ui.itemModal);
+        setNotice("Élément enregistré.");
       } catch (err) {
-        setStatus(`Erreur d'enregistrement : ${err.message}`, true);
+        setNotice(`Erreur enregistrement : ${err.message}`, true);
       }
     });
 
-    els.openImportBtn.addEventListener("click", () => {
-      els.importForm.reset();
-      openModal(els.importModal);
+    ui.importListBtn.addEventListener("click", () => {
+      ui.importForm.reset();
+      openDialog(ui.importModal);
     });
+    ui.closeImportBtn.addEventListener("click", () => closeDialog(ui.importModal));
+    ui.cancelImportBtn.addEventListener("click", () => closeDialog(ui.importModal));
 
-    els.closeImportModal.addEventListener("click", () => closeModal(els.importModal));
-    els.cancelImportBtn.addEventListener("click", () => closeModal(els.importModal));
-
-    els.importForm.addEventListener("submit", async (e) => {
+    ui.importForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!state.user || !state.currentCollection) return;
-
-      const defaultCat = els.importCategory.value.trim();
-      const lines = els.importText.value
+      if (!state.user || !state.activeCollection) return;
+      const fallbackCat = ui.importDefaultCat.value.trim();
+      const lines = ui.importLinesArea.value
         .split(/\r?\n/)
         .map((l) => l.trim())
         .filter(Boolean);
-
       if (!lines.length) return;
-
       try {
-        let count = 0;
+        let added = 0;
         for (const line of lines) {
-          const parts = line.split("|").map((p) => p.trim());
-          const title = parts[0];
+          const cols = line.split("|").map((p) => p.trim());
+          const title = cols[0];
           if (!title) continue;
-          const itemData = {
-            collectionId: state.currentCollection.id,
+          const docData = {
+            collectionId: state.activeCollection.id,
             title,
-            ref: parts[1] || "",
-            category: parts[2] || defaultCat || "",
-            notes: parts[3] || "",
+            ref: cols[1] || "",
+            category: cols[2] || fallbackCat || "",
+            notes: cols[3] || "",
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()
           };
-          const created = await addDoc(collection(db, "items"), itemData);
-          state.items.push({ id: created.id, ...itemData });
-          count += 1;
+          const created = await addDoc(collection(db, "items"), docData);
+          state.items.push({ id: created.id, ...docData });
+          added += 1;
         }
         state.items.sort((a, b) => (a.title || "").localeCompare(b.title || "", "fr"));
-        populateCategories();
+        buildCategoryOptions();
         renderItems();
-        closeModal(els.importModal);
-        setStatus(`${count} élément(s) importé(s) dans Firestore.`);
+        closeDialog(ui.importModal);
+        setNotice(`${added} élément(s) importé(s).`);
       } catch (err) {
-        setStatus(`Erreur lors de l'importation : ${err.message}`, true);
+        setNotice(`Erreur importation : ${err.message}`, true);
       }
     });
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
       state.user = user;
-      updateEditorUI();
-      await loadEditorsList();
+      syncRoleUI();
     });
 
     loadCollections();
